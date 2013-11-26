@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block entry_content %}
+
+{% if not user.is_anonymous %}
+<form method="post" action=".">
+	{% csrf_token %}
+	<div class="alert">
+		Are you sure?
+	</div>
+	<div class="form-actions">
+		<input type="submit" value="OK" class="btn btn-danger" />
+		{% url "detail" object.id as detail %}
+		<a href="{% url "list" %}" class="btn">Cancel</a>
+	</div>
+</form>
+{% endif %}
+	<a href="/blog/">See the list of articles</a>
+{% endblock %}

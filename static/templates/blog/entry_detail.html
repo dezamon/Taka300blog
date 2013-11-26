@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block entry_content %}
+
+<blockquote>
+<h3>{{ object.title }}</h3>
+</blockquote>
+
+	<td>
+	<i class="icon-time"></i> {{ object.pub_date }}
+	</td>
+
+<table class="table table-bordered" style="background-color:#; width:700px; height:200px;">
+	<tr>
+	<td>
+	{{ object.content|linebreaksbr }}
+	</td>
+	</tr>
+</table>
+
+    <div style="background-color:#; width:700px; height: 35px;" >
+     <h4>This is expressed by  <span style="font-size:28px;" class="text-info">{{ entry.amount_of_contents }}</span> / 300 letters
+      </h4>
+	</div>
+
+
+
+{%if not user.is_anonymous %}
+<div>
+<a href="{% url "delete" object.id %}" class="btn btn-danger">Delete</a>
+<a href="{% url "update" object.id %}" class="btn btn-primary">Edit</a>
+</div>
+{% endif %}
+   <!--progress bar -->
+      <div style="padding-top:10px;">
+      <div class="progress progress-info progress-striped">
+      {{ entry.progress|safe }}
+      </div>
+    </div>
+      <!--progress bar end -->
+<br/>
+<a href="{% url "list" %}" class="btn"><i class="icon-circle-arrow-left"></i>  Back</a>
+
+
+{% endblock %}

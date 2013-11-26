@@ -1,0 +1,110 @@
+{% extends "base.html" %}
+
+{% block entry_content %}
+<!--
+<table class="table table-condense">
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Contents</th>
+      <th>Date</th>
+    </tr>
+  </thead>
+  <tbody>
+-->
+
+
+<div class="hero-unit" style="height:140px; background-image:url({{ STATIC_URL }}images/profile.png); background-size:750px; height:100px;">
+  <h1 style="margin-top:-45px; color:#fff;">Of fleeing from long sentences and categories</h1>
+</div>
+<!--
+{% if user.is_anonymous %}
+<dd div class="operation">
+  <a href="/blog/login/" class="btn btn-info">Signin</a>
+</dd>
+{% else %}
+<h3>Hello!  <b>{{ user.username }}</b></h3>
+ <a href="/blog/logout/" class="btn btn-danger">SignOut</a>
+ <a href="/blog/create/" class="btn btn-success">Add New Post</a>
+
+{% endif %}
+-->
+
+{% for entry in object_list %}
+
+    <div style="width:700px; margin-bottom:50px;">
+    <hr>
+    <div style="background-color:#; width:500px; height:30px; float:left;"><i class="icon-list"></i> <b>{{ entry.title }}</b></div>
+    <div style="background-color:#; width:200px; float:left; height:30px;"><i class="icon-time"></i> <b>{{ entry.pub_date }}</b></div>
+
+    <div style="background-color:#; width:700px;">
+      {{ entry.short_contents }}
+    </div>
+
+    <div style="background-color:#; height:42px; border-top:1px solid #ccc; border-bottom:1px solid #ccc; margin-top:10px;">
+    <div style="background-color:#; width:400px; float:left; height:40px;" >
+      <h4>This is expressed by  <span style="font-size:28px;" class="text-info">{{ entry.amount_of_contents }}</span> / 300 letters
+      </h4>
+      <!--progress bar -->
+      <div style="padding-top:10px;">
+      <div class="progress progress-info progress-striped">
+      {{ entry.progress|safe }}
+      </div>
+    </div>
+      <!--progress bar end -->
+    </div>
+      {% if entry.testlength %}
+    <a href="{% url "detail" entry.id %}" style="float:right; margin-top:5px; margin-right:4px;"  class="btn btn-success"><i class="icon-eye-open icon-white"></i> Read More</a>
+      {% endif %}
+
+    {% if not user.is_anonymous %}
+    <dd>
+        <a href="{% url "update" entry.id %}" class="btn btn-primary " style="margin-top:5px;">Edit</a>
+        <a href="{% url "delete" entry.id %}" class="btn btn-danger" style="margin-top:5px;">Delete</a>
+    </dd>
+  {% endif %}
+
+
+
+</div>
+  </div><!-- for style -->
+
+<!--
+  <tr>
+    <td><a href="{% url "detail" entry.id %}">{{ entry.title }}</a></td>
+    <td>{{ entry.content }}</td>
+    <td>{{ entry.pub_date }}</td>
+    <td>
+      <a href="{% url "delete" entry.id %}" class="btn btn-mini btn-danger">Delete</a>
+      <a href="{% url "update" entry.id %}" class="btn btn-mini btn-primary">Edit</a>
+    </td>
+  </tr>
+-->
+{% endfor %}
+
+
+<!--ページングの処理-->
+<!--<div class="pager">-->
+  <!--<span class="step_links">-->
+    <ul class="pager">
+    {% if page_obj.has_previous %}
+    <li class="previous"><a href="?page={{ page_obj.previous_page_number }}">&larr; Older</a></li>
+    {% endif %}
+
+        <span class="current">
+            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+        </span>
+
+        {% if page_obj.has_next %}
+           <li class="next"><a href="?page={{ page_obj.next_page_number }}">Newer &rarr;</a></li>
+        {% endif %}
+    </ul>
+  <!--</span>-->
+<!--</div>-->
+<!--ここからページネーション用-->
+<!--
+</tbody>
+</table>
+-->
+
+{% endblock %}

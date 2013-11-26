@@ -1,0 +1,35 @@
+{% for data in entry.object_list %}
+{{ data.title }} <br />
+{% endfor %}
+
+<br />
+
+<span>
+  {% if entry.has_previous %}
+  {% ifnotequal previous_page_number 1 %}
+  <a href="?page=1">First</a>
+  {% endifnotequal %}
+  {% endif %}
+
+  {% if entry.has_previous %}
+  <a href="?page={{ entry.previous_page_number }}">Previous</a>
+  {% endif %}
+
+  {% for num in entry.paginator.page_range %}
+  {% ifequal num entry.number %}
+  <span class="current page">{{ num }}</span>
+  {% else %}
+  <a href="?page={{ num }}"> {{ num }}</a>
+  {% endifequal %}
+  {% endfor %}
+
+  {% if entry.has_next %}
+  <a href="?page={{ entry.next_page_number }}"> Next </a>
+  {% endif %}
+
+  {% if entry.has_next %}
+  {% ifnotequal next_page_number entry.paginator.num_pages %}
+  <a href="?page={{ entry.paginator.num_pages }}">Last</a>
+  {% endifnotequal %}
+  {% endif %}
+</span>

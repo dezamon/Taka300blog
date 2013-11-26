@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+
+{% block entry_content %}
+
+
+	{% if form.errors %}
+	<h3 class="text-error">Please input a correct password</h3>
+	{% endif %}
+<br />
+
+<form method="post" action="." >{% csrf_token %}
+	<label for="username">User ID</label>
+	{{ form.username }}
+	<br />
+	<label for="password">Password</label>
+	{{ form.password }}
+	<br />
+	<input type="submit" value="Signin" class="btn btn-info"/>
+</form>
+
+{% endblock %}

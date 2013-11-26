@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+			<title>Taka300.com</title>
+		<link rel="stylesheet" href="{{ STATIC_URL }}bootstrap/css/bootstrap.css">
+          <style>.content {padding-top: 80px;}</style>
+     <script src="{{ STATIC_URL }}bootstrap/js/bootstrap.js"></script>
+	</head>
+	<body>
+ 	<div class="navbar navbar-fixed-top">
+ 		<div class="navbar-inner">
+			<div class="container">
+				<a class="btn btn-navbar" data-target=".nav-collpase" data-toggle="collapse">
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</a>
+				<a class="brand" href="/blog/">Taka300.com <span style="font-size:14px;">Express everything within 300</span>
+				</a>
+				<div class="container nav-collapse">
+					<ul class="nav">
+						<li><a href="/blog/"><i class="icon-home"></i> Home</a></li>
+					</ul>
+					<!--
+					<ul class="nav">
+						<li><a href="/blog/about/"><i class="icon-star"></i> About</a></li>
+					</ul>
+				-->
+					<ul class="nav">
+						<li><a href="http://www.flickr.com/photos/taka300/" target="_blank"><i class="icon-picture"></i> Flickr</a></li>
+					</ul>
+
+					{% if not user.is_anonymous %}
+					<ul class="nav">
+						<li><a href="{% url "create" %}"><i class="icon-pencil"></i> Create Entry</a></li>
+					</ul>
+					{% endif %}
+
+					<ul class="nav">
+						<li><a href="/blog/login/"><i class="icon-wrench"></i> Settings</a></li>
+					</ul>
+
+					{% if user.is_anonymous %}
+					<ul class="nav" style="float:right;">
+						<a href="/blog/login/" class='btn btn-info'>SignIn</a>
+					</ul>
+					{% else %}
+						<ul class="nav">
+						<a href="/blog/logout/" class='btn btn-danger'>SignOut</a>
+						</ul>
+						<ul class="nav">
+						<h5>Hello! {{ user.username }}</h5>
+						</ul>
+
+					{% endif %}
+
+				</div><!--/.nav-collapse -->
+			</div>
+ 		</div>
+ 	</div>
+ 	<div class="container">
+ 		<div class="content">
+ 			<div class="row">
+ 				<div class="span9">
+ 					{% block main %}
+
+ 					{% block entry_content %}
+ 					{% endblock entry_content %}
+
+ 					{% endblock main %}
+
+ 				</div>
+ 				<div class="span3">
+ 					<div class="well sidebar-nav">
+ 						<div></div>
+ 						<ul class="nav nav-list">
+
+ 							<img src="{{ STATIC_URL }}images/profile.png" class="img-polaroid">
+ 							<div class="profile_box" style="width:158px; height:100px; margin-top:10px;">
+ 							<ul class="unstyled">
+ 								<li style="margin-top:5px;"><i class="icon-user"></i> Taka</li>
+ 								<li style="margin-top:5px;"><i class="icon-heart"></i> Flickr</li>
+ 								<li style="margin-top:5px;"><i class="icon-home"></i> Japan</li>
+ 							</ul>
+ 							<hr>
+ 							</div>
+
+ 							<li><a href="/blog/">Home</a></li>
+ 							<!--<li class="nav-header">Create</li>-->
+ 							<li><a href="{% url "create" %}">Create Entry</a></li>
+ 							<!--<li class="nav-header">TAG</li>-->
+ 							<!--<li class="nav-header">CATEGORY</li>-->
+ 						</ul>
+ 					</div>
+ 				</div>
+ 			</div>
+ 		</div>
+ 		<footer>
+ 		</footer>
+ 	</div>
+ 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+        </body>
+      </html>
+	</body>

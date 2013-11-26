@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+
+{% block entry_content %}
+
+{% if not user.is_anonymous %}
+
+{% if form.has_errors %}
+{% for field in form.fields %}
+
+{% if field.error %}
+{{ field.error }}
+{% endif %}
+
+{% endfor %}
+{% endif %}
+
+<form method="post" action="." class="form-horizontal">
+	<fieldset>
+ 		<legend>
+		{% if object %}
+		Edit
+		{% else %}
+		<h4>Write your new entry!</h4>
+		{% endif %}
+ 		</legend>
+ 		{% csrf_token %}
+
+	<div class="control-group {% if form.title.erros %}error{% endif %}">
+		<label class="control-label" for="id_title">Title</label>
+		<div class="controls">
+			{{ form.title }}
+			<span class="help-inline">{{ form.title.errors|join:","}}</span>
+		</div>
+	</div>
+
+	<div class="control-group {% if form.content.erros %}error{% endif %}">
+	{% if form.content.check_length_cont %}
+			error
+	{% endif %}
+		<label class="control-label" for="id_content">Contents</label>
+		<div class="controls" >
+			{{ form.content }}
+			<span class="help-inline">{{ form.content.errors|join:","}}</span>
+		</div>
+		<br>
+
+		<!--
+		<label class="control-label" for="id_date">Date</label>
+		<div class="controls">
+			{{ form.pub_date }}
+			<span class="help-inline">{{ form.pub_date.errors|join:","}}</span>
+		</div>
+		-->
+
+		<div class="form-actions">
+			<a href="/blog/" class="btn">Cancel</a>
+			<input type="submit" value="save" class="btn btn-primary" />
+		</div>
+
+	</fieldset>
+</form>
+
+{% endif %}
+	<a href="/blog/" class="btn">See the list of articles</a>
+{% endblock %}
